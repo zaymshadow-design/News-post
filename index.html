@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Media Publisher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    .card {
+      background: #1e293b;
+      padding: 18px;
+      border-radius: 12px;
+      margin: 15px 0;
+    }
+    input, textarea, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 8px;
+    }
+    button {
+      background: #16a34a;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+    label { display: block; margin: 12px 0; }
+  </style>
+</head>
+<body>
+  <h2>My Media Publisher</h2>
+  <p>আমার সোশ্যাল মিডিয়া ড্যাশবোর্ড</p>
+
+  <div class="card">
+    <h3>ভিডিও নির্বাচন করুন</h3>
+    <input type="file" id="video" accept="video/*">
+    <textarea id="caption"
+      placeholder="ভিডিওর ক্যাপশন লিখুন"></textarea>
+  </div>
+
+  <div class="card">
+    <h3>প্ল্যাটফর্ম নির্বাচন করুন</h3>
+    <label><input type="checkbox" value="Facebook"> Facebook</label>
+    <label><input type="checkbox" value="Instagram"> Instagram</label>
+    <label><input type="checkbox" value="YouTube"> YouTube Shorts</label>
+    <label><input type="checkbox" value="X"> X</label>
+    <button onclick="preparePost()">পোস্ট প্রস্তুত করুন</button>
+    <p id="status">এখনো কোনো পোস্ট প্রস্তুত হয়নি।</p>
+  </div>
+
+  <script>
+    function preparePost() {
+      const video = document.getElementById("video").files[0];
+      const caption = document.getElementById("caption").value;
+      const selected = [...document.querySelectorAll(
+        'input[type="checkbox"]:checked'
+      )].map(x => x.value);
+
+      if (!video) {
+        alert("প্রথমে একটি ভিডিও নির্বাচন করুন");
+        return;
+      }
+      if (!selected.length) {
+        alert("একটি প্ল্যাটফর্ম নির্বাচন করুন");
+        return;
+      }
+
+      document.getElementById("status").textContent =
+        "নির্বাচিত ভিডিও: " + video.name +
+        " | প্ল্যাটফর্ম: " + selected.join(", ") +
+        " | ক্যাপশন: " + caption;
+    }
+  </script>
+</body>
+</html>
